@@ -5,8 +5,41 @@
 
 .left-bk{
   background-image: url('./assets/people.jpg');
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   width: 100%;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+}
+
+.alt-option-wrapper{
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.signup-wrapper{
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.loading-container{
+  position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    /* height: 100; */
+    height: 100%;
+}
+
+.loading-wrapper{
+  position: relative;
+  left: calc(50% - 100px);
+  top: calc(50% - 100px);
+}
+
+.loading-wrapper img {
+
 }

@@ -1,21 +1,25 @@
+
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import * as actions from "../redux/actions";
 import Grid  from '@material-ui/core/Grid';
-import { withStyles, TextField, Button, FormControlLabel, Checkbox, Typography, } from '@material-ui/core';
+import { withStyles, TextField, Button, Typography, FormControl, Select, MenuItem, InputLabel, } from '@material-ui/core';
 import { isEmailValid } from '../util/app';
 
-// import people from "../assets/people.jpg";
-// import theme from '../util/theme';
 
-class Login extends Component {
+class SignUp extends Component {
     state = {
         rememberMe: false,
         emailAddress: '',
         emailHelperText: '',
+        surName: '',
+        surNameHelperText: '',
+        otherName: '',
+        otherNameHelperText: '',
         password: '',
         passwordHelperText: '',
+        memberShipType: ''
     }
     handleChange = (e) => {
         const {target: {name, value}} = e;
@@ -66,7 +70,44 @@ class Login extends Component {
                 </Grid>
                 <Grid item sm={6} className={classes.formContainer} xs={12} >
                     <form className={classes.form} noValidate autoComplete="off">
-                        
+                    <FormControl className={classes.formControl} variant="outlined">
+                            <InputLabel id="demo-simple-select-helper">Membership Type</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-helper"
+                                id="demo-simple-select-helper"
+                                value={this.state.memberShipType}
+                                name="memberShipType"
+                                onChange={this.handleChange}
+                                label="Membership Type"
+                                className={classes.select} 
+                            >
+                                {/* <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem> */}
+                                <MenuItem value={''}>Select</MenuItem>
+                                <MenuItem value={'Corporate Membership'}>Corporate Membership</MenuItem>
+                                {/* <MenuItem value={30}>Thirty</MenuItem> */}
+                            </Select>
+                            {/* <FormHelperText color="primary">Required</FormHelperText> */}
+                        </FormControl>
+                        <div>
+                            <TextField type="text"
+                            error={this.state.surName.trim() === '' ? false : true}
+                            helperText={this.state.surNameHelperText}
+                             name="firstName"
+                              className={classes.textInput}  
+                              onChange={this.handleChange}
+                              id="firstName" label="Surname" variant="outlined" />
+                        </div>
+                        <div>
+                            <TextField type="text"
+                            error={this.state.otherName.trim() === '' ? false : true}
+                            helperText={this.state.otherNameHelperText}
+                             name="firstName"
+                              className={classes.textInput}  
+                              onChange={this.handleChange}
+                              id="lastName" label="Other Names" variant="outlined" />
+                        </div>
                         <div>
                             <TextField type="email"
                             error={this.state.emailHelperText.trim() === '' ? false : true}
@@ -84,57 +125,38 @@ class Login extends Component {
                              onChange={this.handleChange} 
                              id="password" label="Password" variant="outlined" />
                         </div>
-                        <div className="alt-option-wrapper">
-                            <div>
-                                <FormControlLabel
-                                    control={<Checkbox checked={this.state.rememberMe}
-                                     onChange={this.handleChange} name="rememberMe" />}
-                                    label="Remember Me"
-                                />
-                            </div>
-                            <div>
-                            <Typography
-                                variant="h6"
-                                color="secondary"
-                                component={Link}
-                                to="/forgot-password"
-                                className={classes.headerText}
-                                >
-                                Forgot Password? 
-                                </Typography>
-                            </div>
-                        </div>
-                        <div>
-                            <Button size="medium" onClick={this.handleFormSubmit} color="secondary" 
-                            variant="contained" className={classes.materialButton}>
-                                Login
-                            </Button>
-                        </div>
                         <div className="signup-wrapper">
                             <Typography
                                 variant="h6"
                                 body1="span"
-                                className={classes.headerText}
+                                className={classes.signupwrapper}
                             >
-                                Don't have an account? 
+                                Already have an account? 
                             </Typography>
                             <Typography
                                 component={Link}
-                                to="/signup"
+                                to="/login"
                                 variant="h6"
                                 color="secondary"
                                 body1="span"
                                 className={classes.signupwrapper}
                             >
-                                 Sign Up
+                                 Sign in here
                             </Typography>
                         </div>
+                        <div>
+                            <Button size="medium" onClick={this.handleFormSubmit} color="secondary" 
+                            variant="contained" className={classes.materialButton}>
+                                Sign Up
+                            </Button>
+                        </div>
+                        
                     </form>
                     
                 </Grid>
             </Grid>
         </Fragment>
-    );
+        )
   }
 }
 
@@ -145,8 +167,12 @@ const styles = {
         justifyContent: 'center'
     },
     formControl: {
-        // width: '100%',
-        marginBottom: 40
+        width: '100%',
+        minWidth: '100%',
+        marginBottom: 20,
+        '& label': {
+            fontSize: '0.725rem'
+        },
     },
     form: {
         '& .MuiOutlinedInput-root': {
@@ -154,12 +180,18 @@ const styles = {
         },
         width: '60%',
         maxWith: '600px',
-        margin: '0 auto'
+        margin: '8rem auto'
     },
     textInput: {
-        
+        '& input': {
+            padding: '9.5px 18px'
+        },
+        '& label': {
+            fontSize: '0.725rem'
+        },
         width: '100%',
-        marginBottom: 40
+        marginBottom: 20,
+        // height: '2rem',
     },
     materialButton: {
         '& :hover': {
@@ -170,16 +202,21 @@ const styles = {
         color: '#fff',
         borderRadius: '10px'
     },
-    headerText: {
-        fontSize: '0.954rem'
-    },
     signupwrapper: {
         marginLeft: 8,
         fontSize: '0.954rem'
+    },
+    select: {
+        width: '100%',
+        padding: '0.5px 18px !important'
+    },
+}
+
+const mapStateToProps = state => {
+    const {UI: {loading}} = state;
+    return {
+        loading
     }
 }
 
-
-const mapStatetToProps = state => ({});
-
-export default connect(mapStatetToProps, actions)(withStyles(styles)(Login));
+export default connect(mapStateToProps, actions)(withStyles(styles)(SignUp)); 

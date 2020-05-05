@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router,} from 'react-router-dom';
+
 import './App.css';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import jwtDecode from 'jwt-decode';
 // Redux
@@ -11,15 +11,16 @@ import store from './redux/store';
 // Components
 // import Navbar from './components/layout/Navbar';
 import themeObject from './util/theme';
+import AppRoot from './AppRoot';
 
 
-import Root from "./Root";
 
-// import axios from 'axios';
+
+import axios from 'axios';
 
 const theme = createMuiTheme(themeObject);
 
-// axios.defaults.baseURL = 'https://ipf-backend.herokuapp.com/api';
+axios.defaults.baseURL = 'https://ipf-backend.herokuapp.com';
 
 // const token = localStorage.FBIdToken;
 // if (token) {
@@ -64,14 +65,7 @@ class App extends Component{
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
-          <div className="App">
-              <Router>
-                {/* <Navbar /> */}
-                <div className="container">
-                    <Root  authenticated={this.state.authenticated} />
-                </div>
-              </Router>
-            </div>
+          <AppRoot />
         </Provider>
       </MuiThemeProvider>
     );

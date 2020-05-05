@@ -3,7 +3,7 @@ import {  Switch } from "react-router-dom";
 
 import Home from './pages/home';
 import Login from './pages/login';
-import Signup from './pages/signup';
+import Signup from './pages/register';
 
 import AuthRoute from "./components/AuthRoute";
 import ProtectedRoute from './components/ProtectedRoute';

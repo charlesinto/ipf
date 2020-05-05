@@ -1,1 +1,3 @@
 export const SET_AUTHENTICATED = 'SET_AUTHENTICATED';
+
+export const SHOW_LOADER = 'SHOW_LOADER';
