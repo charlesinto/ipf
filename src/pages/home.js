@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import DashBoard from '../hoc/Dashboard';
 
 class Home extends Component {
+
   render() {
     return (
-      <div> Home </div>
+      <DashBoard>
+        <div></div>
+      </DashBoard>
     );
   }
 }

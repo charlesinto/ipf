@@ -35,7 +35,6 @@ class Login extends Component {
             emailHelperText: '',
             passwordHelperText: ''
         })
-        console.log(this.state.emailAddress, this.state.password)
         if(this.state.emailAddress.trim() === '' || !isEmailValid(this.state.emailAddress)){
             this.setState({
                 emailHelperText : "Email Address is required or not in email format"
@@ -74,7 +73,7 @@ class Login extends Component {
                              name="emailAddress"
                               className={classes.textInput}  
                               onChange={this.handleChange}
-                              id="emailAddress" label="Email Address" variant="outlined" />
+                              id="emailAddress" label="User ID" variant="outlined" />
                         </div>
                         <div>
                             <TextField type="password"
@@ -157,7 +156,9 @@ const styles = {
         margin: '0 auto'
     },
     textInput: {
-        
+        '& input': {
+            padding: '9.5px 18px'
+        },
         width: '100%',
         marginBottom: 40
     },

@@ -43,3 +43,47 @@
 .loading-wrapper img {
 
 }
+
+.MuiInputLabel-outlined.MuiInputLabel-shrink{
+  font-weight: bolder !important;
+  
+}
+
+.app-wrapper{
+  /* max-width: 1200px;
+  margin: 0 auto; */
+  padding: 60px 16px 0 0px;
+  display: flex;
+}
+
+.appbar-menu-wrapper{
+  display: flex;
+  flex: 1
+}
+
+@media screen and (max-width: 768px){
+  .appbar-menu-wrapper{
+    justify-content: flex-end;
+
+  }
+}
+
+.app-container{
+  margin-left: 20px;
+  padding-left: 12rem;
+  padding-top: 20px;
+  width: 100%
+}
+
+.app-dashboard{
+    min-height: 100vh;
+    background-color: #d3d3d37a;
+    height: 100%;
+    position: fixed;
+    /* padding: 0 30px; */
+  
+}
+
+.active{
+  color: #00c853 !important;
+}

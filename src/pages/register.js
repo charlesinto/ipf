@@ -208,6 +208,7 @@ const styles = {
     },
     select: {
         width: '100%',
+        height: 46,
         padding: '0.5px 18px !important'
     },
 }
