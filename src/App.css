@@ -71,7 +71,7 @@
 .app-container{
   margin-left: 20px;
   padding-left: 12rem;
-  padding-top: 20px;
+  padding-top: 40px;
   width: 100%
 }
 
@@ -86,4 +86,17 @@
 
 .active{
   color: #00c853 !important;
+}
+
+.status-wrapper{
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.prof-info-wrapper{
+  margin: 20px 0;
+}
+
+.btn-edit{
+  margin-left: 16px;
 }

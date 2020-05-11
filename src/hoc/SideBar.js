@@ -4,6 +4,7 @@ import InboxIcon from "@material-ui/icons/Inbox";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import PaymentCard from '@material-ui/icons/CardMembership';
+import PaymentHistory from '@material-ui/icons/History';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { connect } from 'react-redux';
 import * as actions from "../redux/actions";
@@ -75,6 +76,14 @@ class SideBar extends Component {
                     <ListItemText className={`${activeLink === 'payment' ? 'active' : ''}`} primary="Payments" />
                 </ListItem>
             </Paper>
+            <Paper onClick={() => this.handleLinkChange('payment')} className={classes.listIconButton} elevation={0}>
+                <ListItem component={Link} to="/user/payment-histroy"  className={classes.listNavBar} button>
+                    <ListItemIcon className={`${activeLink === 'paymentHistory' ? 'active' : ''}`}>
+                        <PaymentHistory />
+                    </ListItemIcon>
+                    <ListItemText className={`${activeLink === 'paymentHistory' ? 'active' : ''}`} primary="Payment History" />
+                </ListItem>
+            </Paper>
         </List>
       </>
     );
@@ -90,7 +99,8 @@ const styles = {
         padding: '40px 0'
     },
     listIconButton: {
-        marginBottom: 10
+        marginBottom: 10,
+        borderRadius: 0
     }
 }
 

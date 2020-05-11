@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import DashBoard from '../hoc/Dashboard';
 import { Grid, Paper, withStyles, Typography, } from '@material-ui/core';
 import mastercard from "../assets/mastercard.svg";
+import * as actions from "../redux/actions";
+import { connect } from 'react-redux';
 
 class PaymentMembership extends Component {
+ componentDidMount(){
+    this.props.setActiveLink('payment');
+ }
  state = {
      data: [
          {paymentFor: 'Membership', paymentId: 908432805,  date: '03-05-20', amount: 92901901091},
@@ -77,9 +82,7 @@ class PaymentMembership extends Component {
   render() {
     return (
       <DashBoard>  
-          {
-              this.renderPayments()
-          }
+         
       </DashBoard>
     );
   }
@@ -102,4 +105,4 @@ const styles = {
     }
 }
 
-export default withStyles(styles)(PaymentMembership);
+export default connect(null, actions)(withStyles(styles)(PaymentMembership));
