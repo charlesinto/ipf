@@ -1,108 +1,156 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DashBoard from '../hoc/Dashboard';
-import { Grid, Paper, withStyles, Typography, } from '@material-ui/core';
-import mastercard from "../assets/mastercard.svg";
-import * as actions from "../redux/actions";
-import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { Grid, TextField, InputAdornment, Button, OutlinedInput } from '@material-ui/core';
 
-class PaymentMembership extends Component {
- componentDidMount(){
-    this.props.setActiveLink('payment');
- }
- state = {
-     data: [
-         {paymentFor: 'Membership', paymentId: 908432805,  date: '03-05-20', amount: 92901901091},
-         {paymentFor: 'Membership', paymentId: 908432805,  date: '03-05-20', amount: 92901901091},
-         {paymentFor: 'Membership', paymentId: 908432805,  date: '03-05-20', amount: 92901901091},
-         {paymentFor: 'Membership', paymentId: 908432805,  date: '03-05-20', amount: 92901901091},
-         {paymentFor: 'Membership', paymentId: 908432805,  date: '03-05-20', amount: 92901901091},
-     ]
- }
- formartAsMoney = (amount) => {
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'NGN',
-        maximumSignificantDigits: 3
-      });
-      
-     return  formatter.format(amount);
- }
- renderPayments = () => {
-     const { classes} = this.props;
-    return this.state.data.map((payment) => {
-        return (
-        <Paper className={classes.paperRoot} elevation={2}>
-            <Grid className={classes.titleWrapper} container>
-                <Grid item sm >
-                    <Typography className={classes.apiTitle} variant="h6" color="secondary">
-                        Payment For
-                    </Typography>
-                </Grid>
-                <Grid item sm >
-                    <Typography className={classes.apiTitle} variant="h6" color="secondary">
-                        Payment ID
-                    </Typography>
-                </Grid>
-                <Grid item sm >
-                    <Typography className={classes.apiTitle} variant="h6" color="secondary">
-                        Date
-                    </Typography>
-                </Grid>
-                <Grid item sm >
-                    <Typography className={classes.apiTitle} variant="h6" color="secondary">
-                        Amount
-                    </Typography>
-                </Grid>
-                <Grid item sm >
-                    <Typography className={classes.apiTitle} variant="h6" color="secondary">
-                        Payment Method
-                    </Typography>
-                </Grid>
-            </Grid>
-            <Grid container>
-                <Grid className={classes.apiValue} sm item>
-                    {payment.paymentFor}
-                </Grid>
-                <Grid className={classes.apiValue} sm item>
-                    {payment.paymentId}
-                </Grid>
-                <Grid className={classes.apiValue} sm item>
-                    {payment.date}
-                </Grid>
-                <Grid className={classes.apiValue} sm item>
-                    {this.formartAsMoney(payment.amount)}
-                </Grid>
-                <Grid sm item>
-                    <img src={mastercard} alt="Master card" style={{width: '120px', height: '40px'}} />
-                </Grid>
-            </Grid>
-      </Paper>);
-    });
- }
-  render() {
-    return (
-      <DashBoard>  
-         
-      </DashBoard>
-    );
-  }
-}
-
-const styles = {
-    paperRoot: {
-        width: '90%',
-        margin: '0 auto 15px auto',
-        padding: '12px 30px'
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+      width: '100%'
     },
-    titleWrapper: {
-        margin: '0 0 10px 0'
+    selectEmpty: {
+      marginTop: theme.spacing(2),
     },
-    apiValue: {
-        fontWeight: 'bold'
+    materialButton: {
+        marginTop: 20,
+        textAlign: 'right'
     },
-    apiTitle: {
-        fontSize: 12
+    btnwrapper:{
+        textAlign:'right'
     }
+  }));
+
+const PaymentMembership = () => {
+    const classes = useStyles();
+    const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+  return (
+      <DashBoard>  
+         <Grid container>
+             <Grid item sm={2}></Grid>
+             <Grid item sm={8}>
+                 <div>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={age}
+                        onChange={handleChange}
+                        label="Pay For"
+                        >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
+                <div>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
+                        <TextField type="text"
+                            // error={this.state.passwordHelperText.trim() === '' ? false : true}
+                            // helperText={this.state.passwordHelperText}
+                             name="name" className={classes.textInput}   
+                             onChange={handleChange} 
+                             id="name" label="Name" variant="outlined" />
+                    </FormControl>
+                </div>
+                <div>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
+                        <TextField type="text"
+                            // error={this.state.passwordHelperText.trim() === '' ? false : true}
+                            // helperText={this.state.passwordHelperText}
+                             name="userid" className={classes.textInput}   
+                             onChange={handleChange} 
+                             id="userid" label="User ID" variant="outlined" />
+                    </FormControl>
+                </div>
+                <Grid container spacing={2}>
+                    <Grid item sm>
+                        <div>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
+                                <TextField type="text"
+                                    // error={this.state.passwordHelperText.trim() === '' ? false : true}
+                                    // helperText={this.state.passwordHelperText}
+                                    name="registeredEmail" className={classes.textInput}   
+                                    onChange={handleChange} 
+                                    id="registeredEmail" label="Registered Email" variant="outlined" />
+                            </FormControl>
+                        </div>
+                    </Grid>
+                    <Grid item sm>
+                        <div>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
+                                <TextField type="text"
+                                    // error={this.state.passwordHelperText.trim() === '' ? false : true}
+                                    // helperText={this.state.passwordHelperText}
+                                    name="confirmEmail" className={classes.textInput}   
+                                    onChange={handleChange} 
+                                    id="confirmEmail" label="Confirm Email" variant="outlined" />
+                            </FormControl>
+                        </div>
+                    </Grid>
+                </Grid>
+                <div>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
+                        <TextField type="text"
+                            // error={this.state.passwordHelperText.trim() === '' ? false : true}
+                            // helperText={this.state.passwordHelperText}
+                            name="registeredPhone" className={classes.textInput}   
+                            onChange={handleChange} 
+                            id="registeredPhone" label="Registered Phone" variant="outlined" />
+                    </FormControl>
+                </div>
+                <div>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel id="amountid">Amount</InputLabel>
+                        <OutlinedInput type="text"
+                            labelId="amountid"
+                            // error={this.state.passwordHelperText.trim() === '' ? false : true}
+                            // helperText={this.state.passwordHelperText}
+                            name="amount" className={classes.textInput}   
+                            onChange={handleChange}
+                            placeholder="Amount"
+                            startAdornment={<InputAdornment position="start">&#8358;</InputAdornment>}
+                            // inputProps={{
+                            //     startAdornment: <InputAdornment position="start">Kg</InputAdornment>
+                            // }} 
+                            id="amount" label="Amount" variant="outlined" />
+                    </FormControl>
+                </div>
+                <Grid container>
+                    <Grid item sm></Grid>
+                    <Grid sm item className={classes.btnwrapper}>
+                        <Button size="large" color="secondary" 
+                                variant="contained" className={classes.materialButton}>
+                                    Proceed
+                        </Button>
+                    </Grid>
+                </Grid>
+             </Grid>
+             <Grid item sm={2}></Grid>
+        </Grid>
+      </DashBoard>
+  )
 }
 
-export default connect(null, actions)(withStyles(styles)(PaymentMembership));
+
+
+export default PaymentMembership;
