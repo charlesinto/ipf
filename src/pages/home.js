@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import DashBoard from '../hoc/Dashboard';
 import { Grid, Avatar, Typography, Button, Divider } from '@material-ui/core';
 import {  Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/EditOutlined';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +48,20 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles()
+  const [state, setState] = useState({})
+  
   // const history = useHistory();
+  const initiateState = useCallback(() => {
+    const getUser = () => {
+      var user = JSON.parse(localStorage.getItem('ipf-user'))
+      setState(user)
+    }
+
+    getUser()
+  }, [setState])
+  useEffect(() => {
+    initiateState()
+  }, [initiateState])
   return(
     
     <DashBoard>
@@ -66,7 +80,7 @@ const Home = () => {
                       <Typography
                         variant="h3"
                       >
-                        Fabio Basile
+                        {`${state.firstName} ${state.lastName}`}
                       </Typography>
                       <Typography
                         body1="span"
@@ -117,7 +131,7 @@ const Home = () => {
                   </Grid>
                   <Grid sm item>
                     <Typography body1="span">
-                      Fabio Basile
+                    {`${state.firstName} ${state.lastName}`}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -127,7 +141,7 @@ const Home = () => {
                   </Grid>
                   <Grid sm item>
                   <Typography body1="span">
-                      fabio.basile@gmail.com
+                  {`${state.emailAddress}`}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -137,7 +151,7 @@ const Home = () => {
                   </Grid>
                   <Grid  sm item>
                   <Typography body1="span">
-                      09090911001
+                    {`${state.phoneNumber}`}
                     </Typography>
                   </Grid>
                 </Grid>

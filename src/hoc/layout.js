@@ -3,8 +3,13 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions";
 // import SweetAlert from "react-bootstrap-sweetalert";
+import Swal from 'sweetalert2'
 
 class Layout extends Component {
+    componentDidMount(){
+        const user = JSON.parse(localStorage.getItem('ipf-user'))
+        this.props.setCurrentUser(user)
+    }
     logout = () => {
         this.props.logout()
         return <Redirect to="/users/login" />
@@ -21,6 +26,19 @@ class Layout extends Component {
     hideAlert = () => {
         this.props.closeSnackBar()
     }
+    renderAlert = () => {
+        if(this.props.showAlert){
+            Swal.fire({
+                title: this.props.alert.title,
+                text: this.props.alert.text,
+                icon: this.props.alert.type,
+                onClose: () => {
+                    this.props.closeAlert()
+                }
+             })
+        }
+        return null
+    }
     render() {
         return (
             <>
@@ -28,6 +46,9 @@ class Layout extends Component {
 
                 {
                     this.props.goToHome ? <Redirect to="/" /> : null
+                }
+                {
+                    this.props.gotoLogin ? <Redirect to="/login" /> : null
                 }
                 {/* {
                     this.props.showAlert ? <SweetAlert
@@ -43,16 +64,19 @@ class Layout extends Component {
 
                 }
                  */}
+                 {
+                     this.renderAlert()
+                 }
             </>
         );
     }
 }
 
 const mapStateToProps = state => {
-    const { UI:  {goToHome }, } = state;
+    const { UI:  {goToHome, showAlert, alert, gotoLogin }, } = state;
     // console.log(state)
     return {
-        goToHome
+        goToHome, showAlert, alert, gotoLogin
     }
 }
 

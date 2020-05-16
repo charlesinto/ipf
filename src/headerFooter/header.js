@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import {  makeStyles } from '@material-ui/core/styles';
@@ -7,9 +7,11 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import { useDispatch } from "react-redux";
+import { REDIRECT_TO_LOGIN } from '../redux/types';
 
 const useStyles = makeStyles((theme) => ({
+    
     grow: {
       flexGrow: 1,
     },
@@ -92,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const menuId = 'primary-search-account-menu';
@@ -111,7 +114,12 @@ const Header = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
+  const logoutUser = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    localStorage.removeItem('x-access-token')
+    dispatch({type: REDIRECT_TO_LOGIN, payload: ''})
+  }
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -165,9 +173,23 @@ const Header = () => {
           onClose={handleMenuClose}
         >
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+          <MenuItem onClick={logoutUser}>Log Out</MenuItem>
         </Menu>
       );
+      const [state, setState] = useState({})
+  
+  // const history = useHistory();
+  const initiateState = useCallback(() => {
+    const getUser = () => {
+      var user = JSON.parse(localStorage.getItem('ipf-user'))
+      setState(user)
+      }
+
+      getUser()
+    }, [setState])
+      useEffect(() => {
+        initiateState()
+    }, [initiateState])
     return (
         <div className={classes.grow}>
                 <AppBar position="fixed" elevation={0} color="primary">
@@ -195,7 +217,7 @@ const Header = () => {
                                 Membership Status
                             </Typography>
                             <Button size="small" className={classes.membershipStatus} variant="contained" color="secondary">
-                                Pending
+                                {state.approved === 0 ? 'Pending': 'Approved'}
                             </Button>
                             {/* <div className={classes.searchIcon}>
                             <SearchIcon />

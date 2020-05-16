@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import DashBoard from '../hoc/Dashboard';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -6,10 +6,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { Grid, TextField, InputAdornment, Button, OutlinedInput } from '@material-ui/core';
-import { SHOW_LOADER, DUE_TO_PAY_FETCHED } from '../redux/types';
+import { useDispatch, connect } from "react-redux";
+import { Grid, InputAdornment, Button, OutlinedInput, Snackbar } from '@material-ui/core';
+import { SHOW_LOADER, DUE_TO_PAY_FETCHED, SHOW_ALERT, REDIRECT_TO_LOGIN } from '../redux/types';
 import axios from 'axios';
+import Alert from '@material-ui/lab/Alert';
+import { pstack_publickey } from '../config';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -28,27 +30,119 @@ const useStyles = makeStyles((theme) => ({
         textAlign:'right'
     }
   }));
-
-const PaymentMembership = () => {
-    const classes = useStyles();
-    const [age, setAge] = React.useState('');
+  
+const PaymentMembership = ({appState}) => {
+    
     const dispatch = useDispatch()
-    const dueToPay = useSelector(state => state.UI)
-    console.log('is ue'+ dueToPay)
-//  useEffect(() => {
-//      dispatch({type: SHOW_LOADER, payload: true})
-//      getPaymentDue();
-//  })
- const getPaymentDue = async () => {
-   const response =  await axios.get('/api/v1/pay/init-dues')
-   const { data: {dueToPay}} = response.data;
-   console.log(dueToPay)
-//    dispatch({type: SHOW_LOADER, payload: false})
-//    dispatch({type: DUE_TO_PAY_FETCHED, payload: dueToPay})
- }
+    const [email, setEmail] = useState('')
+    const initFetch = useCallback(() => {
+        const getPaymentDue = async () => {
+            try{
+                dispatch({type: SHOW_LOADER, payload: true})
+                const response =  await axios.get('/api/v1/pay/init-dues')
+                const { data} = response.data;
+                setEmail(appState.payData.emailAddress)
+                dispatch({type: SHOW_LOADER, payload: false})
+                dispatch({type: DUE_TO_PAY_FETCHED, payload:data})
+            }catch(error){
+                dispatch({type: SHOW_LOADER, payload: false})
+                console.error(error.response.status)
+                if(error.response && error.response.status === 403){
+                   localStorage.removeItem('x-access-token')
+                   dispatch({type: REDIRECT_TO_LOGIN, payload:''})
+                }
+            }
+            
+        }
+        getPaymentDue()
+      }, [dispatch, appState.payData.emailAddress]);
+      
+    useEffect(()=> {
+        
+        initFetch()
+    }, [initFetch])
+    const classes = useStyles();
+    const [state, setState] = useState({dues_id: '', amount: 0});
+    const [openSnackbar, toggleSnackbar] = useState(false)
+    // const [amountToPay, setAmount] = useState(0)
+    
   const handleChange = (event) => {
-    setAge(event.target.value);
+      const {target: {name, value}} = event
+    if(name === 'dues_id' ){
+        const amount = appState.dueToPay.find(element => {
+            const item = JSON.stringify(element)
+            const item2 = JSON.parse(item);
+            return item2.dues_id === parseInt(value)
+        });
+        if(amount !== undefined){
+            const pay = JSON.parse(JSON.stringify(amount))
+
+            return setState({...state, [event.target.name]: event.target.value, amount: `${pay.amount}`});
+        }
+       return  setState({...state, [event.target.name]: event.target.value, amount: `0`});
+    }
+    return setState({...state, [event.target.name]: event.target.value});
   };
+  const handlePayment = () => {
+    toggleSnackbar(false)
+    if(state.dues_id.trim() === ''){
+        return toggleSnackbar(true)
+    }
+    if(parseInt(state.amount.trim()) <= 0){
+        return toggleSnackbar(true)
+    }
+    var handler = window.PaystackPop.setup({
+        key: pstack_publickey,
+        email: email,
+        amount: parseInt(state.amount) * 100,
+        currency: "NGN",
+        ref: getReference(), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        metadata: {
+           custom_fields: [
+              {
+                  display_name: "Mobile Number",
+                  variable_name: "mobile_number",
+                  value: "+2348012345678"
+              }
+           ]
+        },
+        callback: (response) => callback(response),
+        onClose: () =>  close()
+      });
+      handler.openIframe();
+  }
+  const handleClose = () => {
+
+  }
+  const getReference = () => {
+    //you can put any unique reference implementation code here
+        let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.=";
+
+        for( let i=0; i < 15; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+    }
+    const callback = async (response) => {
+        dispatch({type: SHOW_LOADER, payload: true})
+        //call api
+        try{
+             await axios.get(`api/v1/pay/verify?duesID=${state.dues_id}&reference=${response.reference}`)
+            dispatch({type: SHOW_LOADER, payload: false})
+            dispatch({type: SHOW_ALERT, payload: {title: 'Action Success',
+                 text:'Payment Successful', type:'success'}})
+        }catch(error){
+            console.error(error);
+            dispatch({type: SHOW_LOADER, payload: false})
+            dispatch({type: SHOW_ALERT, payload: {title: 'Action Error',
+                 text:'Some errors were encountered verifying payment', type:'warning'}})
+        } // card charged successfully, get reference here
+    }
+
+    const close = () => {
+        console.log("Payment closed");
+    }
   return (
       <DashBoard>  
          <Grid container>
@@ -60,78 +154,22 @@ const PaymentMembership = () => {
                         <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        value={age}
+                        value={state.dues_id}
                         onChange={handleChange}
+                        name="dues_id"
                         label="Pay For"
                         >
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        {
+                            appState.dueToPay.map((element) => {
+                                return <MenuItem value={`${element['dues_id']}`}>
+                                            {element['paymentFor']}
+                                        </MenuItem>
+                            })
+                        }
                         </Select>
-                    </FormControl>
-                </div>
-                <div>
-                    <FormControl variant="outlined" className={classes.formControl}>
-                        {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
-                        <TextField type="text"
-                            // error={this.state.passwordHelperText.trim() === '' ? false : true}
-                            // helperText={this.state.passwordHelperText}
-                             name="name" className={classes.textInput}   
-                             onChange={handleChange} 
-                             id="name" label="Name" variant="outlined" />
-                    </FormControl>
-                </div>
-                <div>
-                    <FormControl variant="outlined" className={classes.formControl}>
-                        {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
-                        <TextField type="text"
-                            // error={this.state.passwordHelperText.trim() === '' ? false : true}
-                            // helperText={this.state.passwordHelperText}
-                             name="userid" className={classes.textInput}   
-                             onChange={handleChange} 
-                             id="userid" label="User ID" variant="outlined" />
-                    </FormControl>
-                </div>
-                <Grid container spacing={2}>
-                    <Grid item sm>
-                        <div>
-                            <FormControl variant="outlined" className={classes.formControl}>
-                                {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
-                                <TextField type="text"
-                                    // error={this.state.passwordHelperText.trim() === '' ? false : true}
-                                    // helperText={this.state.passwordHelperText}
-                                    name="registeredEmail" className={classes.textInput}   
-                                    onChange={handleChange} 
-                                    id="registeredEmail" label="Registered Email" variant="outlined" />
-                            </FormControl>
-                        </div>
-                    </Grid>
-                    <Grid item sm>
-                        <div>
-                            <FormControl variant="outlined" className={classes.formControl}>
-                                {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
-                                <TextField type="text"
-                                    // error={this.state.passwordHelperText.trim() === '' ? false : true}
-                                    // helperText={this.state.passwordHelperText}
-                                    name="confirmEmail" className={classes.textInput}   
-                                    onChange={handleChange} 
-                                    id="confirmEmail" label="Confirm Email" variant="outlined" />
-                            </FormControl>
-                        </div>
-                    </Grid>
-                </Grid>
-                <div>
-                    <FormControl variant="outlined" className={classes.formControl}>
-                        {/* <InputLabel id="demo-simple-select-outlined-label">Pay For</InputLabel> */}
-                        <TextField type="text"
-                            // error={this.state.passwordHelperText.trim() === '' ? false : true}
-                            // helperText={this.state.passwordHelperText}
-                            name="registeredPhone" className={classes.textInput}   
-                            onChange={handleChange} 
-                            id="registeredPhone" label="Registered Phone" variant="outlined" />
                     </FormControl>
                 </div>
                 <div>
@@ -144,6 +182,7 @@ const PaymentMembership = () => {
                             name="amount" className={classes.textInput}   
                             onChange={handleChange}
                             placeholder="Amount"
+                            value={state.amount}
                             startAdornment={<InputAdornment position="start">&#8358;</InputAdornment>}
                             // inputProps={{
                             //     startAdornment: <InputAdornment position="start">Kg</InputAdornment>
@@ -154,7 +193,7 @@ const PaymentMembership = () => {
                 <Grid container>
                     <Grid item sm></Grid>
                     <Grid sm item className={classes.btnwrapper}>
-                        <Button size="large" color="secondary" 
+                        <Button size="large" color="secondary" onClick={handlePayment}
                                 variant="contained" className={classes.materialButton}>
                                     Proceed
                         </Button>
@@ -163,10 +202,20 @@ const PaymentMembership = () => {
              </Grid>
              <Grid item sm={2}></Grid>
         </Grid>
+        <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openSnackbar} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="warning">
+                Please select payment plan and amount can not be zero
+            </Alert>
+        </Snackbar>
       </DashBoard>
   )
 }
 
+const mapStateToProps = state => {
+    const {user: appState, UI: { user}} = state;
+    return {appState, user}
+}
 
 
-export default PaymentMembership;
+
+export default connect(mapStateToProps, null)(PaymentMembership);

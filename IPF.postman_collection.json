@@ -1,0 +1,1148 @@
+{
+	"info": {
+		"_postman_id": "16cd7877-50c2-428f-9ac2-17cbce6e13f0",
+		"name": "IPF",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"role\"  : \"admin\",\n\t\"nameOfCompany\":\"Techparlons\",\n\t\"emailAddress\":\"narcisse@techparlons.com\",\n\t\"password\": \"ninja@1234\",\n\t\"firstName\":\"Narcisse\",\n\t\"lastName\" : \"Chika\",\n\t\"phoneNumber\":\"07065656541\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				},
+				"description": "Call this endpoint to register members. Role depends on the member type which is one of these type; admin, M, B, A, LM, LB, LA, and P.\n\nM - Individual Member\nB - Corporate Members - Two  Registrants\nA - Corporate Members - Five Registrants\nLM - Life Individual Member\nLB - Life Corporate Member - Two registrants\nLA - Life Corporate Member - Five registrants\nP - Patron"
+			},
+			"response": [
+				{
+					"name": "register",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"role\"  : \"M\",\n\t\"nameOfCompany\":\"Techparlons\",\n\t\"emailAddress\":\"narcisse.egonu@techparlons.com\",\n\t\"password\": \"ninja@1234\",\n\t\"firstName\":\"Narcisse\",\n\t\"lastName\" : \"Egonu\",\n\t\"phoneNumber\":\"07065656511\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "226"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"e2-xTv8yxSra+Y0H6CrPaEryxFbidg\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 06:23:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Created Successfully\",\n    \"data\": {\n        \"role\": \"M\",\n        \"nameOfCompany\": \"Techparlons\",\n        \"emailAddress\": \"narcisse.egonu@techparlons.com\",\n        \"password\": \"ninja@1234\",\n        \"firstName\": \"Narcisse\",\n        \"lastName\": \"Egonu\",\n        \"phoneNumber\": \"07065656511\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"emailAddress\": \"aliyu@techparlons.com\",\n\t\"password\": \"ninja@1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Call this endpoint to log in a user"
+			},
+			"response": [
+				{
+					"name": "login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"emailAddress\": \"narcisse.egonu@techparlons.com\",\n\t\"password\": \"ninja@1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "395"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"18b-R+mw/CmgQEES42Bbs6skqbZHYK0\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 06:44:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Successfully\",\n    \"data\": {\n        \"firstName\": \"Narcisse\",\n        \"lastName\": \"Egonu\",\n        \"email\": \"narcisse.egonu@techparlons.com\",\n        \"phoneNumber\": \"07065656511\",\n        \"id\": 4,\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuYXJjaXNzZS5lZ29udUB0ZWNocGFybG9ucy5jb20iLCJpc0FkbWluIjowLCJtZW1iZXJUeXBlIjoiTSIsImlhdCI6MTU4ODIyOTA3MSwiZXhwIjoxNTg4MzE1NDcxfQ.Lv8Az92XTNuAuPYrPW3GeCBGSjiZbcqgs90E9NKXUvw\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "getUserDetails",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuYXJjaXNzZS5lZ29udUB0ZWNocGFybG9ucy5jb20iLCJpc0FkbWluIjowLCJtZW1iZXJUeXBlIjoiTSIsImlhdCI6MTU4ODIyOTA3MSwiZXhwIjoxNTg4MzE1NDcxfQ.Lv8Az92XTNuAuPYrPW3GeCBGSjiZbcqgs90E9NKXUvw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/auth/details",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"details"
+					]
+				},
+				"description": "Call this endpoint to get member details. Add x-access-token in the headers like the one shown in the example."
+			},
+			"response": [
+				{
+					"name": "getUserDetails",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuYXJjaXNzZS5lZ29udUB0ZWNocGFybG9ucy5jb20iLCJpc0FkbWluIjowLCJtZW1iZXJUeXBlIjoiTSIsImlhdCI6MTU4ODIyOTA3MSwiZXhwIjoxNTg4MzE1NDcxfQ.Lv8Az92XTNuAuPYrPW3GeCBGSjiZbcqgs90E9NKXUvw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"details"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "524"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"20c-N9TRBDNdJu/dusx60gWnarlVlu8\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 06:48:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Successfully\",\n    \"data\": {\n        \"memberId\": 4,\n        \"firstName\": \"Narcisse\",\n        \"lastName\": \"Egonu\",\n        \"emailAddress\": \"narcisse.egonu@techparlons.com\",\n        \"nameOfCompany\": \"Techparlons\",\n        \"phoneNumber\": \"07065656511\",\n        \"password\": null,\n        \"memberNumber\": null,\n        \"membershipType\": \"M\",\n        \"address\": null,\n        \"city\": null,\n        \"industryClassification\": null,\n        \"industryType\": null,\n        \"website\": null,\n        \"companyDetails\": null,\n        \"isAdmin\": 0,\n        \"profileCompleted\": 0,\n        \"barcode\": null,\n        \"DomPurchase\": null,\n        \"expiryDate\": null,\n        \"expiryStatus\": null,\n        \"approved\": 0,\n        \"createdAt\": \"2020-04-30T06:23:25.000Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Add / Edit details",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuYXJjaXNzZS5lZ29udUB0ZWNocGFybG9ucy5jb20iLCJpc0FkbWluIjowLCJtZW1iZXJUeXBlIjoiTSIsImlhdCI6MTU4ODIyOTA3MSwiZXhwIjoxNTg4MzE1NDcxfQ.Lv8Az92XTNuAuPYrPW3GeCBGSjiZbcqgs90E9NKXUvw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"city\":\"Ibadan\",\n\t\"address\": \"Aare Bodija, Ibadan oyo state\",\n\t\"companyDetails\": \"Techparlons is a software company. The length of characters should not be more than 150\",\n\t\"website\": \"https://techparlons.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/auth/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"edit"
+					]
+				},
+				"description": "Call this endpoint to add details like company name, city, address, industry type, industry classification,  e.t.c. Always add the x-access-token in headers."
+			},
+			"response": []
+		},
+		{
+			"name": "getAllMember Details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4NjMzMjcyLCJleHAiOjE1ODg3MTk2NzJ9.mXXvimrOquFIRMt5AZ0bAhUSKAzS6ht6dsNl3DIH-fo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/admin/get-members",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"get-members"
+					]
+				},
+				"description": "Admin should call this endpoint to get all members' details"
+			},
+			"response": [
+				{
+					"name": "getAllMember Details",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/admin/get-members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"get-members"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2398"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"95e-LlIppsE51K1cFKdvgVr6EgOuZH4\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 08:12:02 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Created Successfully\",\n    \"data\": [\n        {\n            \"memberId\": 1,\n            \"firstName\": \"Narcisse\",\n            \"lastName\": \"Egonu\",\n            \"emailAddress\": \"hello@techparlons.com\",\n            \"nameOfCompany\": \"Techparlons\",\n            \"phoneNumber\": \"07065656522\",\n            \"password\": \"$2a$15$.69Q3u4aes7g7Q1ajQuNJ.4rCXB/JKJaj1FpfBW4QpYwp/htvkNFa\",\n            \"memberNumber\": null,\n            \"membershipType\": \"member\",\n            \"address\": \"University of Ibadan\",\n            \"city\": \"Ibadan\",\n            \"industryClassification\": null,\n            \"industryType\": null,\n            \"website\": \"www.techparlons.com\",\n            \"companyDetails\": null,\n            \"isAdmin\": 0,\n            \"profileCompleted\": null,\n            \"barcode\": null,\n            \"DomPurchase\": null,\n            \"expiryDate\": null,\n            \"expiryStatus\": null,\n            \"approved\": 0,\n            \"createdAt\": \"2020-04-27T08:36:46.000Z\"\n        },\n        {\n            \"memberId\": 3,\n            \"firstName\": \"John\",\n            \"lastName\": \"Doe\",\n            \"emailAddress\": \"info@techparlons.com\",\n            \"nameOfCompany\": \"Techparlons\",\n            \"phoneNumber\": \"07065656521\",\n            \"password\": \"$2a$15$zExJJL2MeUb.kfpM20/QjORTLNbuTfQ4sr1bzXULodA60RDm3GFM6\",\n            \"memberNumber\": null,\n            \"membershipType\": \"member\",\n            \"address\": null,\n            \"city\": null,\n            \"industryClassification\": null,\n            \"industryType\": null,\n            \"website\": null,\n            \"companyDetails\": null,\n            \"isAdmin\": 0,\n            \"profileCompleted\": 0,\n            \"barcode\": null,\n            \"DomPurchase\": null,\n            \"expiryDate\": null,\n            \"expiryStatus\": null,\n            \"approved\": 0,\n            \"createdAt\": \"2020-04-30T06:14:55.000Z\"\n        },\n        {\n            \"memberId\": 4,\n            \"firstName\": \"Narcisse\",\n            \"lastName\": \"Egonu\",\n            \"emailAddress\": \"narcisse.egonu@techparlons.com\",\n            \"nameOfCompany\": \"Techparlons\",\n            \"phoneNumber\": \"07065656511\",\n            \"password\": \"$2a$15$Ndc3QsASOrVr/oSH6e2APuRoEOg5gMHWZ/y3C.qtXYBFz1YBQYCQK\",\n            \"memberNumber\": null,\n            \"membershipType\": \"M\",\n            \"address\": \"Aare Bodija, Ibadan oyo state\",\n            \"city\": \"Ibadan\",\n            \"industryClassification\": null,\n            \"industryType\": null,\n            \"website\": \"https://techparlons.com\",\n            \"companyDetails\": \"Techparlons is a software company. The length of characters should not be more than 150\",\n            \"isAdmin\": 0,\n            \"profileCompleted\": 0,\n            \"barcode\": null,\n            \"DomPurchase\": null,\n            \"expiryDate\": null,\n            \"expiryStatus\": null,\n            \"approved\": 0,\n            \"createdAt\": \"2020-04-30T06:23:25.000Z\"\n        },\n        {\n            \"memberId\": 10,\n            \"firstName\": \"Aliyu\",\n            \"lastName\": \"Olateju\",\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"nameOfCompany\": \"Techparlons\",\n            \"phoneNumber\": \"07065656501\",\n            \"password\": \"$2a$15$m0S.K2W0TFA8yBKTD9Oa3.tew96YTDTjZHhAk.YO2Q9y2vsnbTf1C\",\n            \"memberNumber\": null,\n            \"membershipType\": \"admin\",\n            \"address\": null,\n            \"city\": null,\n            \"industryClassification\": null,\n            \"industryType\": null,\n            \"website\": null,\n            \"companyDetails\": null,\n            \"isAdmin\": 1,\n            \"profileCompleted\": 0,\n            \"barcode\": null,\n            \"DomPurchase\": null,\n            \"expiryDate\": null,\n            \"expiryStatus\": null,\n            \"approved\": 0,\n            \"createdAt\": \"2020-04-30T08:08:21.000Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "getUserProfile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/admin/get-profile?userId=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"get-profile"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Call this endpoint to get a user's profile. Provide admin token in the x-access-token in headers"
+			},
+			"response": [
+				{
+					"name": "getUserProfile",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/admin/get-profile?userId=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"get-profile"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "527"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"20f-exOdyxZtmMaFtvfprDPNwAqsDSc\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 08:22:54 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Created Successfully\",\n    \"data\": {\n        \"memberId\": 10,\n        \"firstName\": \"Aliyu\",\n        \"lastName\": \"Olateju\",\n        \"emailAddress\": \"aliyu@techparlons.com\",\n        \"nameOfCompany\": \"Techparlons\",\n        \"phoneNumber\": \"07065656501\",\n        \"password\": null,\n        \"memberNumber\": null,\n        \"membershipType\": \"admin\",\n        \"address\": null,\n        \"city\": null,\n        \"industryClassification\": null,\n        \"industryType\": null,\n        \"website\": null,\n        \"companyDetails\": null,\n        \"isAdmin\": 1,\n        \"profileCompleted\": 0,\n        \"barcode\": null,\n        \"DomPurchase\": null,\n        \"expiryDate\": null,\n        \"expiryStatus\": null,\n        \"approved\": 0,\n        \"createdAt\": \"2020-04-30T08:08:21.000Z\"\n    }\n}"
+				},
+				{
+					"name": "getUserProfile",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/admin/get-profile?userId=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"get-profile"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "527"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"20f-exOdyxZtmMaFtvfprDPNwAqsDSc\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 08:22:54 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Created Successfully\",\n    \"data\": {\n        \"memberId\": 10,\n        \"firstName\": \"Aliyu\",\n        \"lastName\": \"Olateju\",\n        \"emailAddress\": \"aliyu@techparlons.com\",\n        \"nameOfCompany\": \"Techparlons\",\n        \"phoneNumber\": \"07065656501\",\n        \"password\": null,\n        \"memberNumber\": null,\n        \"membershipType\": \"admin\",\n        \"address\": null,\n        \"city\": null,\n        \"industryClassification\": null,\n        \"industryType\": null,\n        \"website\": null,\n        \"companyDetails\": null,\n        \"isAdmin\": 1,\n        \"profileCompleted\": 0,\n        \"barcode\": null,\n        \"DomPurchase\": null,\n        \"expiryDate\": null,\n        \"expiryStatus\": null,\n        \"approved\": 0,\n        \"createdAt\": \"2020-04-30T08:08:21.000Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "assignRole",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\" : 11,\n\t\"role\" : \"treasurer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/admin/assign-role",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"assign-role"
+					]
+				},
+				"description": "Call this endpoint to assignRole to admin"
+			},
+			"response": [
+				{
+					"name": "assignRole",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\" : 11,\n\t\"role\" : \"treasurer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/admin/assign-role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"assign-role"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "160"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"a0-/p2L8ucFJw04STIf6KBZ4Gg6lxM\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 10:18:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Created Successfully\",\n    \"data\": {\n        \"userId\": 11,\n        \"role\": \"treasurer\",\n        \"memberId\": 10,\n        \"emailAddress\": \"aliyu@techparlons.com\",\n        \"isAdmin\": 1,\n        \"memberType\": \"admin\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "approve member",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\" : 11\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/admin/approve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"approve"
+					]
+				},
+				"description": "Call this endpoint to approve a newly signed up member. Please note that userId is the memberId of the member to be approved."
+			},
+			"response": [
+				{
+					"name": "approve member",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\" : 11\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/admin/approve",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"approve"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "142"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"8e-o73NGv/D50kZvVCfEaFCJcKkDRw\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 10:29:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Approved successfully\",\n    \"data\": {\n        \"userId\": 11,\n        \"memberId\": 10,\n        \"emailAddress\": \"aliyu@techparlons.com\",\n        \"isAdmin\": 1,\n        \"memberType\": \"admin\"\n    }\n}"
+				},
+				{
+					"name": "approve member",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4MjM0MzA2LCJleHAiOjE1ODgzMjA3MDZ9.-p9BdB4OP3uvkrdg48Cey8X0TH-K1ywt3UQ0EwVhfsg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\" : 11\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/admin/approve",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"approve"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "141"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"8d-tkRGhdF0g3iHxHAyLIVJDOywXSs\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 30 Apr 2020 10:28:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Created Successfully\",\n    \"data\": {\n        \"userId\": 11,\n        \"memberId\": 10,\n        \"emailAddress\": \"aliyu@techparlons.com\",\n        \"isAdmin\": 1,\n        \"memberType\": \"admin\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "payDues",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg5NTEyOTY3LCJleHAiOjE1ODk1OTkzNjd9.CUjAfUQ3DWo56RhfrTefhAw6VflDd1shkz3itS60vbg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"amount\" : \"1000\",\n\"paymentFor\" : \"Dues\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ipf-backend.herokuapp.com/api/v1/pay",
+					"protocol": "https",
+					"host": [
+						"ipf-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pay"
+					]
+				},
+				"description": "Call this endpoint to pay dues\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all transactions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoibmFyY2lzc2VAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg5NjI2MDM3LCJleHAiOjE1ODk3MTI0Mzd9.c65WQjpj47AHykupR3e8XPJvD-9Ymf6KIXuXqSPVem4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://ipf-backend.herokuapp.com/api/v1/pay/get",
+					"protocol": "https",
+					"host": [
+						"ipf-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pay",
+						"get"
+					]
+				},
+				"description": "Call this endpoint to view all payments made"
+			},
+			"response": [
+				{
+					"name": "Get all transactions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4NjMzMjcyLCJleHAiOjE1ODg3MTk2NzJ9.mXXvimrOquFIRMt5AZ0bAhUSKAzS6ht6dsNl3DIH-fo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/pay/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"pay",
+								"get"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1790"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6fe-hcYOr81Y3tOM1RMBzvc2XxEw1Gw\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 05 May 2020 01:49:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Fetched successfully\",\n    \"data\": [\n        {\n            \"paymentId\": 1,\n            \"transactionId\": null,\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": null,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"a3s9jmgl60\",\n            \"dateCreated\": \"2020-05-05T01:03:18.000Z\"\n        },\n        {\n            \"paymentId\": 3,\n            \"transactionId\": null,\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": null,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"6j9g5yuou7\",\n            \"dateCreated\": \"2020-05-05T01:18:10.000Z\"\n        },\n        {\n            \"paymentId\": 4,\n            \"transactionId\": null,\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": null,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"0jhrlx2cz7\",\n            \"dateCreated\": \"2020-05-05T01:20:43.000Z\"\n        },\n        {\n            \"paymentId\": 5,\n            \"transactionId\": null,\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": null,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"bk0qwhva48\",\n            \"dateCreated\": \"2020-05-05T01:23:37.000Z\"\n        },\n        {\n            \"paymentId\": 6,\n            \"transactionId\": null,\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": null,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"tx71cgu79t\",\n            \"dateCreated\": \"2020-05-05T01:26:19.000Z\"\n        },\n        {\n            \"paymentId\": 7,\n            \"transactionId\": null,\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": null,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"t44dfpsmdp\",\n            \"dateCreated\": \"2020-05-05T01:30:47.000Z\"\n        },\n        {\n            \"paymentId\": 8,\n            \"transactionId\": null,\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": null,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"wqcjrsnr4i\",\n            \"dateCreated\": \"2020-05-05T01:33:59.000Z\"\n        },\n        {\n            \"paymentId\": 9,\n            \"transactionId\": \"662925727\",\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": 1500000,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"syweamms79\",\n            \"dateCreated\": \"2020-05-05T01:35:20.000Z\"\n        },\n        {\n            \"paymentId\": 10,\n            \"transactionId\": \"662933759\",\n            \"memberId\": 10,\n            \"initAmount\": \"15000\",\n            \"duePaid\": 15000,\n            \"emailAddress\": \"aliyu@techparlons.com\",\n            \"reference\": \"bui3gtpel6\",\n            \"dateCreated\": \"2020-05-05T01:41:34.000Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "initPayDues",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImVtYWlsIjoiY2hhcmxlc0BnbWFpbC5jb20iLCJpc0FkbWluIjoxLCJtZW1iZXJUeXBlIjoiYWRtaW4iLCJpYXQiOjE1ODk2MTUzNDIsImV4cCI6MTU4OTcwMTc0Mn0.3YaI4xXU1RO3cJFh-e0zPdledE6mtfVSy4aVHehGc20",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://ipf-backend.herokuapp.com/api/v1/pay/init-dues",
+					"protocol": "https",
+					"host": [
+						"ipf-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pay",
+						"init-dues"
+					]
+				},
+				"description": "Call this endpoint when the payment page is about to be rendered. Calling this enpoint fetches the due to be paid based on the user type."
+			},
+			"response": [
+				{
+					"name": "initPayDues",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg4NjMzMjcyLCJleHAiOjE1ODg3MTk2NzJ9.mXXvimrOquFIRMt5AZ0bAhUSKAzS6ht6dsNl3DIH-fo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/pay/init-dues",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"pay",
+								"init-dues"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "127"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"7f-2NOUU5wnKmAUH070vvCt09fLYik\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 05 May 2020 00:26:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"successfully\",\n    \"data\": {\n        \"dueToPay\": 15000,\n        \"emailAddress\": \"aliyu@techparlons.com\",\n        \"name\": \"AliyuOlateju\",\n        \"memberId\": 10\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "verifyPay",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYWxpeXVAdGVjaHBhcmxvbnMuY29tIiwiaXNBZG1pbiI6MSwibWVtYmVyVHlwZSI6ImFkbWluIiwiaWF0IjoxNTg5NDA3OTE4LCJleHAiOjE1ODk0OTQzMTh9.DqiYdm7VPPE3hmsJLZAHUzIQaRh5vPRIGSpOuEhffYQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/pay/verify?duesID=8&reference=f3rkc2x690",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"pay",
+						"verify"
+					],
+					"query": [
+						{
+							"key": "duesID",
+							"value": "8"
+						},
+						{
+							"key": "reference",
+							"value": "f3rkc2x690"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST PAYMENT",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImVtYWlsIjoiY2hhcmxlc0BnbWFpbC5jb20iLCJpc0FkbWluIjoxLCJtZW1iZXJUeXBlIjoiYWRtaW4iLCJpYXQiOjE1ODk2MTUzNDIsImV4cCI6MTU4OTcwMTc0Mn0.3YaI4xXU1RO3cJFh-e0zPdledE6mtfVSy4aVHehGc20",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://ipf-backend.herokuapp.com/api/v1/pay/verify?duesID=11&reference=SbP0MeiYZ=fcY6s",
+					"protocol": "https",
+					"host": [
+						"ipf-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pay",
+						"verify"
+					],
+					"query": [
+						{
+							"key": "duesID",
+							"value": "11"
+						},
+						{
+							"key": "reference",
+							"value": "SbP0MeiYZ=fcY6s"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
