@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DashBoard from '../hoc/Dashboard';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -6,7 +6,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { Grid, TextField, InputAdornment, Button, OutlinedInput } from '@material-ui/core';
+import { SHOW_LOADER, DUE_TO_PAY_FETCHED } from '../redux/types';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -29,7 +32,20 @@ const useStyles = makeStyles((theme) => ({
 const PaymentMembership = () => {
     const classes = useStyles();
     const [age, setAge] = React.useState('');
-
+    const dispatch = useDispatch()
+    const dueToPay = useSelector(state => state.UI)
+    console.log('is ue'+ dueToPay)
+//  useEffect(() => {
+//      dispatch({type: SHOW_LOADER, payload: true})
+//      getPaymentDue();
+//  })
+ const getPaymentDue = async () => {
+   const response =  await axios.get('/api/v1/pay/init-dues')
+   const { data: {dueToPay}} = response.data;
+   console.log(dueToPay)
+//    dispatch({type: SHOW_LOADER, payload: false})
+//    dispatch({type: DUE_TO_PAY_FETCHED, payload: dueToPay})
+ }
   const handleChange = (event) => {
     setAge(event.target.value);
   };

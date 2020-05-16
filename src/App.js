@@ -57,6 +57,7 @@ class App extends Component{
       this.setState({authenticated: false})
       // return window.location.href = '/login';
     }else{
+      axios.defaults.headers.common['x-access-token'] = token;
       this.setState({authenticated: true})
     }
   }

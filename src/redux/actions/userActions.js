@@ -8,7 +8,7 @@ export const loginUser =  (emailAddress , password) => {
             const response = await axios.post('/api/v1/auth/login', {emailAddress, password})
             // console.log(response)
             const { data: { data: { firstName, lastName, token, phoneNumber, id}}} = response;
-            axios.defaults.headers.common['Authorization'] = token;
+            axios.defaults.headers.common['x-access-token'] = token;
             localStorage.setItem('x-access-token', token);
             localStorage.setItem('ipf-user', JSON.stringify({firstName, lastName, token, phoneNumber, id}))
             dispatch({ type: SHOW_LOADER, payload: false})

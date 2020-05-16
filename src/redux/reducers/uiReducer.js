@@ -13,9 +13,9 @@ export default (state = INITIAL_STATE, action) => {
     switch(action.type){
         case SHOW_LOADER:
             if(action.payload){
-                return {...state, loading: true, goToHome: false, isAuthenticated: false}
+                return {...state, loading: true}
             }
-            return {...state, loading: false, goToHome: false, isAuthenticated: false}
+            return {...state, loading: false,}
         case REDIRECT_TO_HOME: 
             return {...state, goToHome: true, isAuthenticated: true}
 
