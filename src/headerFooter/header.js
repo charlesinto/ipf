@@ -1,14 +1,24 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Button } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Button, Paper } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import {  makeStyles } from '@material-ui/core/styles';
 import MailIcon from '@material-ui/icons/Mail';
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { REDIRECT_TO_LOGIN, SET_ACTIVE_LINK } from '../redux/types';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import clsx from 'clsx';
+import InboxIcon from "@material-ui/icons/Inbox";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import PaymentCard from '@material-ui/icons/CardMembership';
+import PaymentHistory from '@material-ui/icons/History';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { useDispatch } from "react-redux";
-import { REDIRECT_TO_LOGIN } from '../redux/types';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     
@@ -17,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
       marginRight: theme.spacing(2),
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
+      }
     },
     title: {
       display: 'none',
@@ -24,6 +37,15 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flex: 1
       },
+    },
+    drawerWrapper: {
+      width: '40% !important',
+      [theme.breakpoints.down('md')]: {
+        width: '60%'
+      },
+    },
+    drawerContainer: {
+      padding: '6rem 0'
     },
     search: {
       position: 'relative',
@@ -96,12 +118,17 @@ const Header = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [openDrawer, toggleDrawer] = React.useState(false)
+    const activeLink = useSelector(state => state.UI.activeLink, shallowEqual)
+    
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const menuId = 'primary-search-account-menu';
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const openBDrawer = () => {
+    toggleDrawer(true)
+  }
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -123,6 +150,68 @@ const Header = () => {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const list = (anchor) => {
+   return ( <div
+      className={clsx(classes.drawerContainer, classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={() => toggleDrawer(false)}
+      onKeyDown={() => toggleDrawer(false)}
+    >
+      <List component="nav" className={classes.navBar} aria-label="main mailbox folders">
+            <Paper onClick={() => {toggleDrawer(false); dispatch({type: SET_ACTIVE_LINK, payload: 'dashboard'})}} className={classes.listIconButton} elevation={0}>
+                <ListItem component={Link} to="/" className={classes.listNavBar} button>
+                    <ListItemIcon   className={`${activeLink === 'dashboard' ? 'active' : ''}`}>
+                        <MoreIcon />
+                    </ListItemIcon>
+                    <ListItemText  className={`${activeLink === 'dashboard' ? 'active' : ''}`} primary="My Dashboard" />
+                </ListItem>
+            </Paper>
+            <Paper onClick={() => {toggleDrawer(false); dispatch({type: SET_ACTIVE_LINK, payload: 'event'})}} className={classes.listIconButton} elevation={0}>
+                <ListItem component={Link} to="/user/events"  className={classes.listNavBar} button>
+                    <ListItemIcon className={`${activeLink === 'event' ? 'active' : ''}`}>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText className={`${activeLink === 'event' ? 'active' : ''}`} primary="Events" />
+                </ListItem>
+            </Paper>
+            <Paper onClick={() => {toggleDrawer(false); dispatch({type: SET_ACTIVE_LINK, payload: 'profile'})}} className={classes.listIconButton} elevation={0}>
+                <ListItem component={Link} to="/user/profile"  className={classes.listNavBar} button>
+                    <ListItemIcon className={`${activeLink === 'profile' ? 'active' : ''}`}>
+                        <AccountCircle />
+                    </ListItemIcon>
+                    <ListItemText className={`${activeLink === 'profile' ? 'active' : ''}`} primary="Edit Profile" />
+                </ListItem>
+            </Paper>
+            <Paper onClick={() => {toggleDrawer(false); dispatch({type: SET_ACTIVE_LINK, payload: 'notification'})}} className={classes.listIconButton} elevation={0}>
+                <ListItem  component={Link} to="/user/notifications"  className={classes.listNavBar} button>
+                    <ListItemIcon className={`${activeLink === 'notification' ? 'active' : ''}`}>
+                        <NotificationsIcon />
+                    </ListItemIcon>
+                    <ListItemText className={`${activeLink === 'notification' ? 'active' : ''}`} primary="Notification" />
+                </ListItem>
+            </Paper>
+            <Paper onClick={() => {toggleDrawer(false); dispatch({type: SET_ACTIVE_LINK, payload: 'payment'})}} className={classes.listIconButton} elevation={0}>
+                <ListItem component={Link} to="/user/membership-payment"  className={classes.listNavBar} button>
+                    <ListItemIcon className={`${activeLink === 'payment' ? 'active' : ''}`}>
+                        <PaymentCard />
+                    </ListItemIcon>
+                    <ListItemText className={`${activeLink === 'payment' ? 'active' : ''}`} primary="Payments" />
+                </ListItem>
+            </Paper>
+            <Paper onClick={() => { toggleDrawer(false); dispatch({type: SET_ACTIVE_LINK, payload: 'paymentHistory'})}} className={classes.listIconButton} elevation={0}>
+                <ListItem component={Link} to="/user/payment-histroy"  className={classes.listNavBar} button>
+                    <ListItemIcon className={`${activeLink === 'paymentHistory' ? 'active' : ''}`}>
+                        <PaymentHistory />
+                    </ListItemIcon>
+                    <ListItemText className={`${activeLink === 'paymentHistory' ? 'active' : ''}`} primary="Payment History" />
+                </ListItem>
+            </Paper>
+        </List>
+    </div>)
+  };
+
     const renderMobileMenu = (
         <Menu
           anchorEl={mobileMoreAnchorEl}
@@ -190,7 +279,11 @@ const Header = () => {
       useEffect(() => {
         initiateState()
     }, [initiateState])
+    
     return (
+        <div>
+
+        
         <div className={classes.grow}>
                 <AppBar position="fixed" elevation={0} color="primary">
                 <Toolbar>
@@ -199,6 +292,7 @@ const Header = () => {
                     className={classes.menuButton}
                     color="inherit"
                     aria-label="open drawer"
+                    onClick={openBDrawer}
                 >
                     <MenuIcon />
                 </IconButton>
@@ -270,6 +364,17 @@ const Header = () => {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
+            
+      </div>
+      <SwipeableDrawer
+              anchor={"left"}
+              open={openDrawer}
+              onClose={() => toggleDrawer(false)}
+              onOpen={() => toggleDrawer(false)}
+              className={classes.drawerWrapper}
+            >
+              {list('left')}
+            </SwipeableDrawer>
       </div>
     );
 }

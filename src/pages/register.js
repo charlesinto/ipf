@@ -95,13 +95,18 @@ class SignUp extends Component {
     return (
         <Fragment>
             <Grid container spacing={2}>
-                <Grid item sm={6} xs={12} >
+                <Grid sm className="left-container" item  xs={12} >
                     <div className="left-bk">
                         
                     </div>
                 </Grid>
-                <Grid item sm={6} className={classes.formContainer} xs={12} >
+                <Grid sm item className={'right-container '+classes.formContainer} xs={12} >
                     <form className={classes.form} noValidate autoComplete="off">
+                        <legend>
+                            <Typography color="secondary" variant="h4">
+                                Sign Up
+                            </Typography>
+                        </legend>
                     <FormControl className={classes.formControl} variant="outlined">
                             <InputLabel id="demo-simple-select-helper">Membership Type</InputLabel>
                             <Select

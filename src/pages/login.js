@@ -58,14 +58,18 @@ class Login extends Component {
     return (
         <Fragment>
             <Grid container spacing={2}>
-                <Grid item sm={6} xs={12} >
+                <Grid className='left-container' item sm xs={12} >
                     <div className="left-bk">
                         
                     </div>
                 </Grid>
-                <Grid item sm={6} className={classes.formContainer} xs={12} >
+                <Grid item sm className={'right-container '+classes.formContainer} xs={12} >
                     <form className={classes.form} noValidate autoComplete="off">
-                        
+                        <legend>
+                            <Typography color="secondary" variant="h4">
+                               Log In
+                            </Typography>
+                        </legend>
                         <div>
                             <TextField type="email"
                             error={this.state.emailHelperText.trim() === '' ? false : true}

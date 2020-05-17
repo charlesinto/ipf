@@ -10,8 +10,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(2),
     },
+  },
+  imageContainer:{
+    // margin: theme.spacing(2)
   },
   small: {
     width: theme.spacing(3),
@@ -66,16 +69,16 @@ const Home = () => {
     
     <DashBoard>
          <Grid container>
-            <Grid item sm={2}>
+            <Grid item sm={1}>
              </Grid>
-           <Grid item sm={8}>
-               <Grid container>
-                 <Grid item sm={2}>
+           <Grid item sm={10}>
+               <Grid container spacing={2}>
+                 <Grid className={classes.imageContainer} item sm={2}>
                     <div className={classes.root}>
                       <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/2.jpg" className={classes.large} />
                   </div>
                  </Grid>
-                  <Grid sm={10}>
+                  <Grid item sm={10}>
                       <div>
                       <Typography
                         variant="h3"
@@ -163,7 +166,7 @@ const Home = () => {
                 </Typography>
                </div>
              </Grid>
-             <Grid item sm={2}>
+             <Grid item sm={1}>
 
             </Grid>
          </Grid>
